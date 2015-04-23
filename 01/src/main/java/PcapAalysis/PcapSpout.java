@@ -144,7 +144,7 @@ public class PcapSpout implements IRichSpout {
 			}
 			
 			*/
-			if(sampLen<0) sampLen = 65535;
+			if(sampLen<0) this.sampLen = 65535;
 			
 			
 				while(true){
@@ -189,7 +189,7 @@ public class PcapSpout implements IRichSpout {
         	else
         	{
         		device = getDevice(deviceName);
-				captor = JpcapCaptor.openDevice(device, sampLen, false, 20);
+				captor = JpcapCaptor.openDevice(device, this.sampLen, false, 20);
 				if(filter!= null)
 					captor.setFilter(filter, true);
 				//captor.loopPacket(count, new PacketPrinter());
