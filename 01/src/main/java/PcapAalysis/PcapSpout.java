@@ -25,15 +25,23 @@ public class PcapSpout implements IRichSpout {
 	private NetworkInterface device;
 	
 	//start capture
-	private String deviceName;
-	private int count;
-	private String filter;
-	private String srcFilename;
-	private String dstFilename;
-	private int sampLen;
+	private String deviceName = null;
+	private int count = -1;
+	private String filter = null;
+	private String srcFilename =null ;
+	private String dstFilename = null;
+	private int sampLen = -1;
 	
     public PcapSpout(){};
    
+    public PcapSpout(String deviceName, String count, String filter, String srcFilename, String dstFilename, String sampLen){
+    	this.deviceName = deviceName;
+    	this.count = Integer.parseInt(count); //未使用，无效
+    	this.filter = filter;
+    	this.srcFilename = srcFilename;
+    	this.dstFilename = dstFilename;
+    	this.sampLen = Integer.parseInt(sampLen);
+    }
     public PcapSpout(String deviceName, int count, String filter, String srcFilename, String dstFilename, int sampLen){
     	this.deviceName = deviceName;
     	this.count = count; //未使用，无效

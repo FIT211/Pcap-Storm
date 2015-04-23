@@ -7,6 +7,7 @@ import java.util.Map;
 
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
+//import backtype.storm.topology.IBasicBolt;
 import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Tuple;
@@ -25,9 +26,10 @@ public class PcapBolt implements IRichBolt{
 	public void execute(Tuple tuple) {
 		// TODO Auto-generated method stub
 		try {
-			System.out.println("timestamp:"+tuple.getValueByField("sec")+" caplen: "+tuple.getValueByField("caplen"));
+			//System.out.println("timestamp:"+tuple.getValueByField("sec")+" caplen: "+tuple.getValueByField("caplen"));
 			//fw.write("timestamp:"+tuple.getValue(0)+" flow: "+tuple.getValue(1));
-            this.outputCollector.emit(tuple, tuple.getValues());
+			System.out.println(1);
+            //this.outputCollector.emit(tuple, tuple.getValues());
         } catch (Exception e) {
             
         } finally {
