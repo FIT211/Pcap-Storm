@@ -30,7 +30,7 @@ public class PcapSpout implements IRichSpout {
 	private String filter = null;
 	private String srcFilename =null ;
 	private String dstFilename = null;
-	private int sampLen = -1;
+	private int sampLen = 65535;
 	
     public PcapSpout(){};
    
