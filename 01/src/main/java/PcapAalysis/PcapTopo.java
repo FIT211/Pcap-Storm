@@ -16,7 +16,8 @@ public class PcapTopo {
          
          if (args == null || args.length == 0) {
         	// builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,"D:\\PROJECTS\\EclipseWorkstation\\01\\data0.pcap",null,-1), 1);
-        			builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,null,null,-1), 1);
+        	 builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,"/home/computer200/JavaProject/Pcap-Storm/01/data0.pcap",null,-1), 1);	
+        	 //	builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,null,null,-1), 1);
         		//	builder.setBolt("PcapSavefileBolt", new PcapBolt(), 1).fieldsGrouping("PcapSpout",new Fields("sec","caplen"));
         		//	builder.setBolt("PcapSavefileBolt", new PcapBolt(), 1).shuffleGrouping("PcapSpout");
         	builder.setBolt("bolt2", new PcapFilterBolt(), 1).shuffleGrouping("PcapSpout");
