@@ -15,12 +15,13 @@ public class PcapTopo {
 		 Config conf = new Config();
          
          if (args == null || args.length == 0) {
-        	 builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,"D:\\PROJECTS\\EclipseWorkstation\\01\\data0.pcap",null,-1), 1);
-        	// builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,"/home/computer200/JavaProject/Pcap-Storm/01/data0.pcap",null,-1), 1);	
+        	 
+        	// builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,"D:\\PROJECTS\\EclipseWorkstation\\01\\data0.pcap",null,-1), 1);
+        	 builder.setSpout("NewSpout", new PcapSpout(null,-1,null,"/home/computer200/JavaProject/Pcap-Storm/01/data0.pcap",null,-1), 1);	
         	 //	builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,null,null,-1), 1);
         		//	builder.setBolt("PcapSavefileBolt", new PcapBolt(), 1).fieldsGrouping("PcapSpout",new Fields("sec","caplen"));
         		//	builder.setBolt("PcapSavefileBolt", new PcapBolt(), 1).shuffleGrouping("PcapSpout");
-        	builder.setBolt("bolt2", new PcapFilterBolt(), 1).shuffleGrouping("PcapSpout");
+        	builder.setBolt("bolt2", new PcapFilterBolt(), 1).shuffleGrouping("NewSpout");
 	         conf.setNumWorkers(2);
 	         LocalCluster cluster = new LocalCluster();  
 	         cluster.submitTopology("PcapTopo", conf, builder.createTopology());  
@@ -38,9 +39,9 @@ public class PcapTopo {
         	 System.out.println(args[6]);
         	 builder.setSpout("PcapSpout", new PcapSpout(args[1],args[2],args[3],args[4],args[5],args[6]), 2);
         	 */
-        	 builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,null,null,65535), 1);
+        	 builder.setSpout("NewSpout2", new PcapSpout(null,-1,null,null,null,65535), 1);
         	// builder.setSpout("PcapSpout", new PcapSpout(null,-1,null,"D:\\PROJECTS\\EclipseWorkstation\\01\\data0.pcap",null,-1), 1);
-        	 builder.setBolt("bolt2", new PcapFilterBolt(), 2).shuffleGrouping("PcapSpout");
+        	 builder.setBolt("bolt2", new PcapFilterBolt(), 2).shuffleGrouping("NewSpout2");
         	 conf.setNumWorkers(4);
         	 
         	 StormSubmitter.submitTopologyWithProgressBar(args[0], conf, builder.createTopology());

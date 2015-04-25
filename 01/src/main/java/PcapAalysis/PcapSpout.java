@@ -189,6 +189,7 @@ public class PcapSpout implements IRichSpout {
         	else
         	{
         		device = getDevice(deviceName);
+        		System.out.println("this.samplen is "+this.sampLen);
 				captor = JpcapCaptor.openDevice(device, this.sampLen, false, 20);
 				if(filter!= null)
 					captor.setFilter(filter, true);
