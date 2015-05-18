@@ -129,7 +129,7 @@ public class FlowCapturer{
 		return devices;
 	}
 	
-	void setFlowFilter(String exportIp, String dstPort){
+	void setFlowFilter(String exportIp, String dstPort) throws IOException{
 		String filter = null;
 		
 	//	try {	

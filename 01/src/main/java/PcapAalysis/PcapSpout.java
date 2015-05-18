@@ -40,7 +40,10 @@ public class PcapSpout implements IRichSpout {
     	this.filter = filter;
     	this.srcFilename = srcFilename;
     	this.dstFilename = dstFilename;
-    	this.sampLen = Integer.parseInt(sampLen);
+	int slen=Integer.parseInt(sampLen);
+	if(Integer.parseInt(sampLen)<0)
+		slen = 65535;
+    	this.sampLen = slen;
     }
     public PcapSpout(String deviceName, int count, String filter, String srcFilename, String dstFilename, int sampLen){
     	this.deviceName = deviceName;
@@ -48,6 +51,8 @@ public class PcapSpout implements IRichSpout {
     	this.filter = filter;
     	this.srcFilename = srcFilename;
     	this.dstFilename = dstFilename;
+	if(sampLen<0)
+		sampLen=65535;
     	this.sampLen = sampLen;
     }
     
@@ -58,8 +63,10 @@ public class PcapSpout implements IRichSpout {
 	static NetworkInterface[] getNetworkInterfaces()
 	{
 		//Obtain the list of network interfaces
+		System.out.println("In getNetworkInterfaces()");
 		NetworkInterface[] devices = JpcapCaptor.getDeviceList();
 		
+		 System.out.println("After JpcapCator.getDeviceList()");
 		//for each network interface
 		for (int i = 0; i < devices.length; i++) {  
 			System.out.println(i+": "+devices[i].name + "(" + devices[i].description+")");   
@@ -78,6 +85,7 @@ public class PcapSpout implements IRichSpout {
 	}
     
     NetworkInterface getDevice(String deviceName){
+		System.out.println("In getDevice()");
 		NetworkInterface[] devices = getNetworkInterfaces();
 		
 		if(deviceName==null) return devices[0];
@@ -124,8 +132,10 @@ public class PcapSpout implements IRichSpout {
 
 	public void nextTuple() {
 		// TODO Auto-generated method stub
-		Utils.sleep(10000);
+		System.out.println("In nextTuple() before try");
+		//Utils.sleep(10000);
 		try {
+			System.out.println("In nextTuple() in try");
             //该方法从指定的目录中中读取符合条件的文件列表，并随机从中选择一个将其独占并返回文件名
 			/*
 			if( in != null){
@@ -144,14 +154,18 @@ public class PcapSpout implements IRichSpout {
 			}
 			
 			*/
-			if(sampLen<0) this.sampLen = 65535;
+			System.out.println("in Next Tuple");
+			if(this.sampLen<0) this.sampLen = 65535;
 			
 			
 				while(true){
 				  Packet packet=captor.getPacket();  
 				  //if some error occurred or EOF has reached, break the loop  
 			//	  if(packet==null || packet==Packet.EOF) break; 
-				  if(packet==null)break;
+				  if(packet==null){
+					System.out.println("null");
+					break;
+				  }
 				  //otherwise, print out the packet  
 				    System.out.print("packet cap sec->"+packet.sec+"->");
 					System.out.print("packet cap usec->"+packet.usec+"->");
@@ -173,6 +187,7 @@ public class PcapSpout implements IRichSpout {
 		// TODO Auto-generated method stub
 		this.outputCollector = spoutOutputCollector;
         try {            
+		 System.out.println("In Spout Open()");
             //读取HDFS文件的客户端，自己实现
         	
         	/*
@@ -188,12 +203,14 @@ public class PcapSpout implements IRichSpout {
         	}
         	else
         	{
+			System.out.println("In open else()");
         		device = getDevice(deviceName);
         		System.out.println("this.samplen is "+this.sampLen);
-				captor = JpcapCaptor.openDevice(device, this.sampLen, false, 20);
-				if(filter!= null)
-					captor.setFilter(filter, true);
-				//captor.loopPacket(count, new PacketPrinter());
+			captor = JpcapCaptor.openDevice(device, 65535, false, 20);
+			if(filter!= null)
+				captor.setFilter(filter, true);
+			//captor.loopPacket(count, new PacketPrinter());
+			System.out.println("After JpcapCaptor.openDevice()");
         	}
         	
         } catch (Exception e) {
@@ -204,6 +221,7 @@ public class PcapSpout implements IRichSpout {
 	public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
 		// TODO Auto-generated method stub
 		//outputFieldsDeclarer.declare(new Pcap().createFields());
+		 System.out.println("In Spout declare");
 		outputFieldsDeclarer.declare(new Pcap().createFields());
 	}
 

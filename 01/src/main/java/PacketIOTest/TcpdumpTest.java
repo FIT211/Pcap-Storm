@@ -17,8 +17,8 @@ public class TcpdumpTest {
 		
 		
 		PacketCapturer pc = new PacketCapturer();
-//		pc.startCapture(null,-1,null,null,null,-1);
-		pc.startCapture(null,-1,null,"D:\\PROJECTS\\EclipseWorkstation\\01\\data0.pcap",null,-1);
+		pc.startCapture(null,-1,null,null,null,-1);
+//		pc.startCapture(null,-1,null,"D:\\PROJECTS\\EclipseWorkstation\\01\\data0.pcap",null,-1);
 		
 		
 	//	PacketCapturer pcap = new PacketCapturer ();

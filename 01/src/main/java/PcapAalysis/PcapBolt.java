@@ -28,7 +28,7 @@ public class PcapBolt implements IRichBolt{
 		try {
 			//System.out.println("timestamp:"+tuple.getValueByField("sec")+" caplen: "+tuple.getValueByField("caplen"));
 			//fw.write("timestamp:"+tuple.getValue(0)+" flow: "+tuple.getValue(1));
-			System.out.println(1);
+			System.out.println("1");
             //this.outputCollector.emit(tuple, tuple.getValues());
         } catch (Exception e) {
             
